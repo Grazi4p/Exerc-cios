@@ -1,0 +1,43 @@
+import sqlite3
+
+conexaoDB = sqlite3.connect("meu_banco")
+
+cursor = conexaoDB.cursor()
+print(cursor)
+
+# cursor.execute("""
+#   CREATE TABLE agenda(
+#   id integer primary key autoincrement,
+#   nome text,
+#   telefone text
+#   )
+# """)
+
+# cursor.execute(
+#   "INSERT INTO agenda VALUES(null, 'Maria', '2735-3184')"
+# )
+# conexaoDB.commit()
+
+cursor.execute("SELECT * FROM agenda") 
+print(cursor.fetchall())
+
+cursor.execute("SELECT * FROM agenda WHERE nome = 'Maria'")
+print(cursor.fetchall())
+
+cursor.execute("SELECT * FROM agenda ORDER BY nome")
+print(cursor.fetchall()) 
+
+registros = cursor.execute("SELECT * FROM agenda")
+
+for umRegistro in registros:
+  print(umRegistro)
+
+#Atualizando um Resgitro
+cursor.execute(
+  "UPDATE agenda SET nome = 'Alice' WHERE id = 1"
+)
+conexaoDB.commit()
+
+#Apagando um Registro
+cursor.execute("DELETE FROM agenda WHERE id = 2")
+conexaoDB.commit()
